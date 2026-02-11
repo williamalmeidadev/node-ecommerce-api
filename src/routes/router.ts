@@ -1,4 +1,5 @@
 import { Router } from "express";
+import * as orderController from "../controllers/orderController";
 import * as productController from "../controllers/productController";
 import * as userController from "../controllers/userController";
 
@@ -20,3 +21,10 @@ router.get("/products", productController.list);
 router.get("/products/:id", productController.get);
 router.put("/products/:id", productController.update);
 router.delete("/products/:id", productController.remove);
+
+router.post("/orders", orderController.create);
+router.get("/orders", orderController.list);
+router.get("/orders/:id", orderController.get);
+router.put("/orders/:id", orderController.update);
+router.delete("/orders/:id", orderController.remove);
+router.get("/orders/:id/detail", orderController.detail);
