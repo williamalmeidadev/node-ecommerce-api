@@ -1,83 +1,65 @@
-import bcrypt from "bcrypt";
 import { Request, Response } from "express";
-import * as userRepository from "../repositories/userRepository";
+import * as userService from "../services/userService";
+import { AppError } from "../services/errors";
 
-const saltRounds = Number(process.env.BCRYPT_SALT_ROUNDS || 10);
-
-export async function create(req: Request, res: Response): Promise<Response> {
-  const { name, email, password } = req.body;
-
-  if (!name || !email || !password) {
-    return res.status(400).json({ error: "name, email and password are required" });
+function handleError(res: Response, error: unknown): Response {
+  if (error instanceof AppError) {
+    return res.status(error.statusCode).json({ error: error.message });
   }
 
+  return res.status(500).json({ error: "internal server error" });
+}
+
+export async function create(req: Request, res: Response): Promise<Response> {
   try {
-    const passwordHash = await bcrypt.hash(String(password), saltRounds);
-    const user = await userRepository.createUser(String(name), String(email), passwordHash);
+    const user = await userService.createUser(req.body);
     return res.status(201).json(user);
   } catch (error: unknown) {
-    if (typeof error === "object" && error !== null && "code" in error && error.code === "23505") {
-      return res.status(409).json({ error: "email already exists" });
-    }
-
-    return res.status(500).json({ error: "internal server error" });
+    return handleError(res, error);
   }
 }
 
 export async function list(_req: Request, res: Response): Promise<Response> {
-  const users = await userRepository.listUsers();
-  return res.status(200).json(users);
+  try {
+    const users = await userService.listUsers();
+    return res.status(200).json(users);
+  } catch (error: unknown) {
+    return handleError(res, error);
+  }
 }
 
 export async function get(req: Request, res: Response): Promise<Response> {
-  const user = await userRepository.getUserById(req.params.id);
-
-  if (!user) {
-    return res.status(404).json({ error: "user not found" });
+  try {
+    const user = await userService.getUserById(req.params.id);
+    return res.status(200).json(user);
+  } catch (error: unknown) {
+    return handleError(res, error);
   }
-
-  return res.status(200).json(user);
 }
 
 export async function update(req: Request, res: Response): Promise<Response> {
-  const { name, email } = req.body;
-
-  if (!name || !email) {
-    return res.status(400).json({ error: "name and email are required" });
+  try {
+    const user = await userService.updateUser(req.params.id, req.body);
+    return res.status(200).json(user);
+  } catch (error: unknown) {
+    return handleError(res, error);
   }
-
-  const user = await userRepository.updateUser(req.params.id, String(name), String(email));
-
-  if (!user) {
-    return res.status(404).json({ error: "user not found" });
-  }
-
-  return res.status(200).json(user);
 }
 
 export async function updatePassword(req: Request, res: Response): Promise<Response> {
-  const { password } = req.body;
-
-  if (!password) {
-    return res.status(400).json({ error: "password is required" });
+  try {
+    await userService.updateUserPassword(req.params.id, req.body);
+    return res.status(204).send();
+  } catch (error: unknown) {
+    return handleError(res, error);
   }
-
-  const passwordHash = await bcrypt.hash(String(password), saltRounds);
-  const updated = await userRepository.updateUserPassword(req.params.id, passwordHash);
-
-  if (!updated) {
-    return res.status(404).json({ error: "user not found" });
-  }
-
-  return res.status(204).send();
 }
 
 export async function remove(req: Request, res: Response): Promise<Response> {
-  const deleted = await userRepository.deleteUser(req.params.id);
-
-  if (!deleted) {
-    return res.status(404).json({ error: "user not found" });
+  try {
+    await userService.deleteUser(req.params.id);
+    return res.status(204).send();
+  } catch (error: unknown) {
+    return handleError(res, error);
   }
-
-  return res.status(204).send();
 }
