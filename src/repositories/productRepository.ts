@@ -15,7 +15,7 @@ export async function createProduct(
 ): Promise<ProductOutput> {
   const result = await pool.query<ProductOutput>(
     `
-      INSERT INTO ecommerce.products (name, price_cents, stock)
+      INSERT INTO products (name, price_cents, stock)
       VALUES ($1, $2, $3)
       RETURNING id, name, price_cents, stock, created_at
     `,
@@ -29,7 +29,7 @@ export async function listProducts(): Promise<ProductOutput[]> {
   const result = await pool.query<ProductOutput>(
     `
       SELECT id, name, price_cents, stock, created_at
-      FROM ecommerce.products
+      FROM products
       ORDER BY created_at DESC
     `,
   );
@@ -41,7 +41,7 @@ export async function getProductById(id: string): Promise<ProductOutput | null> 
   const result = await pool.query<ProductOutput>(
     `
       SELECT id, name, price_cents, stock, created_at
-      FROM ecommerce.products
+      FROM products
       WHERE id = $1
     `,
     [id],
@@ -58,7 +58,7 @@ export async function updateProduct(
 ): Promise<ProductOutput | null> {
   const result = await pool.query<ProductOutput>(
     `
-      UPDATE ecommerce.products
+      UPDATE products
       SET name = $2, price_cents = $3, stock = $4
       WHERE id = $1
       RETURNING id, name, price_cents, stock, created_at
@@ -70,6 +70,6 @@ export async function updateProduct(
 }
 
 export async function deleteProduct(id: string): Promise<boolean> {
-  const result = await pool.query("DELETE FROM ecommerce.products WHERE id = $1", [id]);
+  const result = await pool.query("DELETE FROM products WHERE id = $1", [id]);
   return result.rowCount === 1;
 }

@@ -70,9 +70,17 @@ export async function updateProduct(
 }
 
 export async function deleteProduct(id: string) {
-  const deleted = await productRepository.deleteProduct(id);
+  try {
+    const deleted = await productRepository.deleteProduct(id);
 
-  if (!deleted) {
-    throw new AppError("product not found", 404);
+    if (!deleted) {
+      throw new AppError("product not found", 404);
+    }
+  } catch (error: unknown) {
+    if (typeof error === "object" && error !== null && "code" in error && error.code === "23503") {
+      throw new AppError("product is linked to order_items and cannot be deleted", 409);
+    }
+
+    throw error;
   }
 }

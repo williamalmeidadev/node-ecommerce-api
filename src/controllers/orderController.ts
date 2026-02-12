@@ -57,8 +57,8 @@ export async function remove(req: Request, res: Response): Promise<Response> {
 
 export async function detail(req: Request, res: Response): Promise<Response> {
   try {
-    const rows = await orderService.getOrderDetail(req.params.id);
-    return res.status(200).json(rows);
+    const order = await orderService.getOrderDetail(req.params.id);
+    return res.status(200).json(order);
   } catch (error: unknown) {
     return handleError(res, error);
   }

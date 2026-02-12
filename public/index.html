@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Node E-commerce API · Console</title>
+    <link rel="stylesheet" href="app.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <div class="noise"></div>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">NEA</span>
+        <div>
+          <h1>Node E-commerce API</h1>
+          <p>Console visual para testar endpoints, com CRUD completo.</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <div class="field compact">
+          <label for="baseUrl">Base URL</label>
+          <input id="baseUrl" type="url" placeholder="http://localhost:3000" />
+        </div>
+        <button id="healthBtn" class="btn ghost">Health Check</button>
+      </div>
+      <div id="healthStatus" class="status">Status: aguardando</div>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="users" role="tab">Usuários</button>
+      <button class="tab" data-tab="products" role="tab">Produtos</button>
+      <button class="tab" data-tab="orders" role="tab">Pedidos</button>
+      <button class="tab" data-tab="endpoints" role="tab">Endpoints</button>
+    </nav>
+
+    <main class="layout">
+      <section class="panel" id="listPanel">
+        <div class="panel-header">
+          <h2 id="listTitle">Usuários</h2>
+          <div class="panel-actions">
+            <button id="refreshBtn" class="btn ghost">Atualizar</button>
+            <button id="newBtn" class="btn primary">Criar</button>
+          </div>
+        </div>
+        <div id="listContent" class="cards"></div>
+      </section>
+
+      <section class="panel" id="detailPanel">
+        <div class="panel-header">
+          <h2 id="detailTitle">Detalhes</h2>
+        </div>
+        <div id="detailContent" class="detail"></div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+  </body>
+</html>

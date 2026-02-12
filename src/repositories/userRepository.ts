@@ -13,7 +13,7 @@ export async function createUser(
   passwordHash: string,
 ): Promise<UserOutput> {
   const query = `
-    INSERT INTO ecommerce.users (name, email, password_hash)
+    INSERT INTO users (name, email, password_hash)
     VALUES ($1, $2, $3)
     RETURNING id, name, email, created_at
   `;
@@ -24,7 +24,7 @@ export async function createUser(
 
 export async function listUsers(): Promise<UserOutput[]> {
   const result = await pool.query<UserOutput>(
-    "SELECT id, name, email, created_at FROM ecommerce.users ORDER BY created_at DESC",
+    "SELECT id, name, email, created_at FROM users ORDER BY created_at DESC",
   );
 
   return result.rows;
@@ -32,7 +32,7 @@ export async function listUsers(): Promise<UserOutput[]> {
 
 export async function getUserById(id: string): Promise<UserOutput | null> {
   const result = await pool.query<UserOutput>(
-    "SELECT id, name, email, created_at FROM ecommerce.users WHERE id = $1",
+    "SELECT id, name, email, created_at FROM users WHERE id = $1",
     [id],
   );
 
@@ -46,7 +46,7 @@ export async function updateUser(
 ): Promise<UserOutput | null> {
   const result = await pool.query<UserOutput>(
     `
-      UPDATE ecommerce.users
+      UPDATE users
       SET name = $2, email = $3
       WHERE id = $1
       RETURNING id, name, email, created_at
@@ -59,7 +59,7 @@ export async function updateUser(
 
 export async function updateUserPassword(id: string, passwordHash: string): Promise<boolean> {
   const result = await pool.query(
-    "UPDATE ecommerce.users SET password_hash = $2 WHERE id = $1",
+    "UPDATE users SET password_hash = $2 WHERE id = $1",
     [id, passwordHash],
   );
 
@@ -67,6 +67,6 @@ export async function updateUserPassword(id: string, passwordHash: string): Prom
 }
 
 export async function deleteUser(id: string): Promise<boolean> {
-  const result = await pool.query("DELETE FROM ecommerce.users WHERE id = $1", [id]);
+  const result = await pool.query("DELETE FROM users WHERE id = $1", [id]);
   return result.rowCount === 1;
 }
