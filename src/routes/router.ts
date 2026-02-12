@@ -1,12 +1,19 @@
 import { Router } from "express";
+import { pool } from "../pg/pool";
 import * as orderController from "../controllers/orderController";
 import * as productController from "../controllers/productController";
 import * as userController from "../controllers/userController";
 
 export const router = Router();
 
-router.get("/health", (_req, res) => {
-  return res.status(200).json({ status: "ok" });
+router.get("/health", async (_req, res) => {
+  try {
+    await pool.query("SELECT 1");
+    return res.status(200).json({ status: "ok", db: "ok" });
+  } catch (error) {
+    console.error("DB HEALTH FAIL:", error);
+    return res.status(503).json({ status: "degraded", db: "fail" });
+  }
 });
 
 router.post("/users", userController.create);

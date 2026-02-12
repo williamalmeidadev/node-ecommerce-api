@@ -26,19 +26,13 @@
 body {
   font-family: "IBM Plex Sans", sans-serif;
   color: var(--text);
-  background: linear-gradient(160deg, #141923 0%, #0f1115 45%, #0c0e12 100%);
+  background: var(--bg);
   min-height: 100vh;
   padding: 32px 24px 48px;
 }
 
 .noise {
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.6' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
-  opacity: 0.18;
-  pointer-events: none;
-  mix-blend-mode: soft-light;
-  z-index: -1;
+  display: none;
 }
 
 .topbar {
@@ -50,7 +44,7 @@ body {
   border: 1px solid var(--stroke);
   border-radius: var(--radius);
   padding: 20px 24px;
-  box-shadow: var(--shadow);
+  box-shadow: none;
 }
 
 .brand {
@@ -94,7 +88,7 @@ body {
   border: 1px solid var(--stroke);
   padding: 9px 16px;
   border-radius: 10px;
-  background: rgba(20, 24, 32, 0.6);
+  background: var(--bg-alt);
   color: var(--muted);
   cursor: pointer;
   font-weight: 500;
@@ -119,7 +113,7 @@ body {
   border: 1px solid var(--stroke);
   border-radius: var(--radius);
   padding: 20px;
-  box-shadow: var(--shadow);
+  box-shadow: none;
   min-height: 60vh;
 }
 
@@ -196,8 +190,9 @@ body {
 }
 
 .btn.primary {
-  background: var(--primary);
-  color: #0b0d12;
+  background: rgba(122, 162, 214, 0.2);
+  color: var(--text);
+  border: 1px solid rgba(122, 162, 214, 0.4);
 }
 
 .btn.ghost {
