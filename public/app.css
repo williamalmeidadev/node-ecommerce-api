@@ -1,21 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap");
 
 :root {
   color-scheme: dark;
-  --bg: #0c0f14;
-  --bg-alt: #101620;
-  --bg-soft: rgba(20, 30, 45, 0.7);
-  --card: rgba(18, 26, 38, 0.92);
-  --stroke: rgba(100, 130, 170, 0.2);
-  --text: #e6edf7;
-  --muted: #91a3bf;
-  --primary: #2dd4bf;
-  --primary-strong: #4f46e5;
-  --danger: #f97316;
-  --success: #22c55e;
-  --warning: #facc15;
-  --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-  --radius: 18px;
+  --bg: #0f1115;
+  --bg-alt: #131720;
+  --bg-soft: rgba(21, 26, 34, 0.9);
+  --card: #141922;
+  --stroke: rgba(120, 130, 150, 0.18);
+  --text: #e8edf4;
+  --muted: #9aa4b5;
+  --primary: #7aa2d6;
+  --danger: #f38b5a;
+  --success: #5fbf87;
+  --warning: #e6c35c;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  --radius: 12px;
 }
 
 * {
@@ -25,9 +24,9 @@
 }
 
 body {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
   color: var(--text);
-  background: radial-gradient(circle at top, #1b2330 0%, #0c0f14 55%, #090b0f 100%);
+  background: linear-gradient(160deg, #141923 0%, #0f1115 45%, #0c0e12 100%);
   min-height: 100vh;
   padding: 32px 24px 48px;
 }
@@ -35,8 +34,8 @@ body {
 .noise {
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
-  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.6' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+  opacity: 0.18;
   pointer-events: none;
   mix-blend-mode: soft-light;
   z-index: -1;
@@ -60,20 +59,9 @@ body {
   align-items: center;
 }
 
-.logo {
-  font-family: "Syne", sans-serif;
-  font-size: 22px;
-  letter-spacing: 0.1em;
-  padding: 12px 14px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-strong) 100%);
-  color: #05060a;
-  font-weight: 700;
-}
-
 .brand h1 {
   font-size: 22px;
-  font-family: "Syne", sans-serif;
+  font-weight: 600;
 }
 
 .brand p {
@@ -104,9 +92,9 @@ body {
 
 .tab {
   border: 1px solid var(--stroke);
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: transparent;
+  padding: 9px 16px;
+  border-radius: 10px;
+  background: rgba(20, 24, 32, 0.6);
   color: var(--muted);
   cursor: pointer;
   font-weight: 500;
@@ -116,8 +104,8 @@ body {
 .tab.active,
 .tab:hover {
   color: var(--text);
-  background: rgba(79, 70, 229, 0.15);
-  border-color: rgba(79, 70, 229, 0.4);
+  background: rgba(122, 162, 214, 0.16);
+  border-color: rgba(122, 162, 214, 0.4);
 }
 
 .layout {
@@ -144,7 +132,7 @@ body {
 
 .panel-header h2 {
   font-size: 18px;
-  font-family: "Syne", sans-serif;
+  font-weight: 600;
 }
 
 .panel-actions {
@@ -159,8 +147,8 @@ body {
 
 .card {
   background: var(--bg-alt);
-  border-radius: 16px;
-  border: 1px solid rgba(80, 100, 140, 0.25);
+  border-radius: 14px;
+  border: 1px solid rgba(110, 125, 150, 0.22);
   padding: 16px;
   display: grid;
   gap: 10px;
@@ -180,7 +168,7 @@ body {
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 12px;
-  background: rgba(45, 212, 191, 0.15);
+  background: rgba(122, 162, 214, 0.15);
   color: var(--primary);
 }
 
@@ -199,7 +187,7 @@ body {
 
 .btn {
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 8px 14px;
   font-size: 13px;
   cursor: pointer;
@@ -208,7 +196,7 @@ body {
 }
 
 .btn.primary {
-  background: linear-gradient(120deg, var(--primary) 0%, var(--primary-strong) 100%);
+  background: var(--primary);
   color: #0b0d12;
 }
 
@@ -219,8 +207,8 @@ body {
 }
 
 .btn.danger {
-  background: rgba(249, 115, 22, 0.2);
-  color: #fdba74;
+  background: rgba(243, 139, 90, 0.18);
+  color: #f4b291;
 }
 
 .btn.small {
@@ -248,8 +236,8 @@ body {
 .field input,
 .field select,
 .field textarea {
-  background: rgba(9, 13, 20, 0.8);
-  border: 1px solid rgba(90, 120, 160, 0.35);
+  background: rgba(11, 15, 21, 0.9);
+  border: 1px solid rgba(120, 130, 150, 0.28);
   padding: 10px 12px;
   border-radius: 10px;
   color: var(--text);
@@ -267,7 +255,7 @@ body {
 
 .divider {
   height: 1px;
-  background: rgba(90, 120, 160, 0.2);
+  background: rgba(120, 130, 150, 0.18);
   margin: 8px 0;
 }
 
@@ -284,14 +272,39 @@ body {
   align-items: center;
 }
 
+.item-row select,
+.item-row input {
+  background: rgba(11, 15, 21, 0.92);
+  border: 1px solid rgba(120, 130, 150, 0.32);
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--text);
+  font-family: inherit;
+  height: 40px;
+}
+
+.item-row select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 34px;
+}
+
+.item-row input {
+  text-align: center;
+}
+
 .toast {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background: rgba(17, 26, 36, 0.96);
+  background: rgba(17, 22, 30, 0.96);
   padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(90, 120, 160, 0.4);
+  border-radius: 10px;
+  border: 1px solid rgba(120, 130, 150, 0.3);
   box-shadow: var(--shadow);
   opacity: 0;
   transform: translateY(10px);
